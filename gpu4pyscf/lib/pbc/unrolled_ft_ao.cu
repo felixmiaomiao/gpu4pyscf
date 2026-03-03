@@ -9,11 +9,11 @@
 
 
 #if CUDA_VERSION >= 12040
-__global__ __maxnreg__(64) static
+__global__ __maxnreg__(128) static
 #else
 __global__ static
 #endif
-void ft_ao_unrolled_00(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_00(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -123,7 +123,7 @@ __global__ __maxnreg__(128) static
 #else
 __global__ static
 #endif
-void ft_ao_unrolled_01(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_01(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -273,7 +273,7 @@ __global__ __maxnreg__(128) static
 #else
 __global__ static
 #endif
-void ft_ao_unrolled_02(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_02(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -474,7 +474,7 @@ __global__ __maxnreg__(128) static
 #else
 __global__ static
 #endif
-void ft_ao_unrolled_10(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_10(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -618,7 +618,7 @@ __global__ __maxnreg__(128) static
 #else
 __global__ static
 #endif
-void ft_ao_unrolled_11(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_11(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -842,7 +842,7 @@ void ft_ao_unrolled_11(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
 }
 
 __global__ static
-void ft_ao_unrolled_12(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_12(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -1193,7 +1193,7 @@ __global__ __maxnreg__(128) static
 #else
 __global__ static
 #endif
-void ft_ao_unrolled_20(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_20(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -1372,7 +1372,7 @@ void ft_ao_unrolled_20(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
 }
 
 __global__ static
-void ft_ao_unrolled_21(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_21(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -1707,7 +1707,7 @@ void ft_ao_unrolled_21(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
 }
 
 __global__ static
-void ft_ao_unrolled_22(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
+void ft_ao_unrolled_22(double *out, PBCIntEnvVars envs, AFTBoundsInfo bounds,
                         int compressing)
 {
     int sp_block_id = blockIdx.x;
@@ -2269,7 +2269,7 @@ void ft_ao_unrolled_22(double *out, AFTIntEnvVars envs, AFTBoundsInfo bounds,
     }
 }
 
-int ft_ao_unrolled(double *out, AFTIntEnvVars *envs, AFTBoundsInfo *bounds,
+int ft_ao_unrolled(double *out, PBCIntEnvVars *envs, AFTBoundsInfo *bounds,
                    int *scheme, int compressing)
 {
     int li = bounds->li;
@@ -2278,7 +2278,7 @@ int ft_ao_unrolled(double *out, AFTIntEnvVars *envs, AFTBoundsInfo *bounds,
     int nsp_per_block = scheme[1] * scheme[2];
 #if CUDA_VERSION >= 12040
     switch (li*5 + lj) {
-    case 0: nsp_per_block *= 4; break;
+    case 0: nsp_per_block *= 2; break;
     case 1: nsp_per_block *= 2; break;
     case 2: nsp_per_block *= 2; break;
     case 5: nsp_per_block *= 2; break;
